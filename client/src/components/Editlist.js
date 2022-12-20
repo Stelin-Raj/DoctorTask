@@ -1,25 +1,52 @@
 import React, { Fragment, useState } from "react";
 
-const Editlist = ({list}) => {
-  const [doctorname, setDoctorName] = useState(list.doctorname);
-  const [specialist, setSpecialist] = useState(list.specialist);
-  const [fees, setFees] = useState(list.fees);
+const Editlist = ({ list }) => {
 
-  const updatedata = async(e) => {
+  const [doctorname, setDoctorName] = useState(list.Name);
+  const [specialist, setSpecialist] = useState(list.Specialist);
+  const [fees, setFees] = useState(list.Fees);
+
+  const updatedata = async e => {
     e.preventDefault();
     try {
-        const body = {doctorname, specialist, fees};
-        const response = await fetch(`http://localhost:5500/dashboard/${list.doctor_id}`, {
-            method:"PUT",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(body)
-        })
-        console.log(response);
+      // const body = { doctorname, specialist, fees };
+      const response = await fetch(
+        `http://localhost:5500/master/${list.doctor_id}`,
+        {
+          method: "PUT",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({doctorname, specialist, fees}),
+        }
+      );
+      console.log(response);
     } catch (err) {
-        console.error(err.message)
+      console.error(err.message);
     }
-    
-    }
+  };
+
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  
+  //   fetch(`/master/${list.doctor_id}`, {
+  //     method: 'PUT',
+  //     body: JSON.stringify({ Name: doctorname, Specialist: specialist, Fees:fees }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         // Update the user data in the React app if the update was successful
+  //         setUser({ name: name, email: email });
+  //       } else {
+  //         throw new Error('Error updating user');
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }
+  
   return (
     <Fragment>
       <button
@@ -30,7 +57,6 @@ const Editlist = ({list}) => {
       >
         Edit
       </button>
-      {/* id = id10 */}
       <div class="modal" id={`id${list.doctor_id}`}>
         <div class="modal-dialog">
           <div class="modal-content">
@@ -49,21 +75,21 @@ const Editlist = ({list}) => {
                 className="form-control mb-2"
                 placeholder="Name"
                 value={doctorname}
-                onChange={(e) => setDoctorName(e.target.value)}
+                onChange={e => setDoctorName(e.target.value)}
               />
               <input
                 type="text"
                 className="form-control mb-2"
                 placeholder="Specialist"
                 value={specialist}
-                onChange={(e) => setSpecialist(e.target.value)}
+                onChange={e => setSpecialist(e.target.value)}
               />
               <input
                 type="text"
                 className="form-control mb-2"
                 placeholder="Fees"
                 value={fees}
-                onChange={(e) => setFees(e.target.value)}
+                onChange={e => setFees(e.target.value)}
               />
             </div>
 
@@ -72,7 +98,7 @@ const Editlist = ({list}) => {
                 type="button"
                 class="btn btn-primary"
                 data-bs-dismiss="modal"
-                onClick={(e) => updatedata(e)}
+                onClick={e => updatedata(e)}
               >
                 Save
               </button>

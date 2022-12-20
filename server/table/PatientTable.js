@@ -11,11 +11,11 @@ const PatientTable = sequelize.define("Patient", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  Doctor_name: {
+  DOB: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  DOB: {
+  Problem:{
     type: Sequelize.STRING,
     allowNull: false,
   },
@@ -31,10 +31,10 @@ const PatientTable = sequelize.define("Patient", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  Problem:{
+  Doctor_name: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
 });
 
 sequelize

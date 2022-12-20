@@ -10,13 +10,13 @@ const Loginform = () => {
   const onSubmitForm = () => {
     axios
       .post(`http://localhost:5500/login`, {
-        Email: email,
-        Password: password,
+        email,
+        password,
       })
       .then((response) => {
         if (response.data) {
-          navigate("./dashboard");
-        } else if (response.status == 200) {
+          navigate("/dashboard");
+        } else {
           navigate("/login");
         }
       })
@@ -25,41 +25,44 @@ const Loginform = () => {
 
   return (
     <Fragment>
-      <div className="container">
-        <h1 className="col-lg-12 login-title mt-5 text-center">Login</h1>
-
-        <div className="col-lg-12 login-form">
-          <form onSubmit={onSubmitForm}>
-            <div className="form-group">
-              <label className="form-control-label mt-3">Email:</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-control-label mt-3">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter your email"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <div className="col-lg-6 login-btm login-button mt-3">
-              <button type="submit" className="btn btn-outline-primary">
-                LOGIN
-              </button>
-            </div>
+<div className="container">
+  <div className="form">
+        <h1 className="text-center mt-5">Login</h1>
+        <form className="mt-5">
+          <div className="mb-3">
+            <label htmlFor="pwd" className="form-label">
+              Email:
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="pwd" className="form-label">
+              Password:
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
           </form>
-        </div>
+          <button type="submit" className="btn btn-primary" onClick={onSubmitForm}>
+            Login
+          </button>
+          </div>
       </div>
-      <div className="col-lg-3 col-md-2"></div>
     </Fragment>
   );
 };
