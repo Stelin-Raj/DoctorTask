@@ -65,7 +65,7 @@ app.post("/login", (req, res) => {
 });
 
 //create doctor list
-app.post("/dashboard", async (req, res) => {
+app.post("/master", async (req, res) => {
   const doctorList = await DoctorTable.create({
     Name: req.body.doctorname,
     Specialist: req.body.specialist,
@@ -75,43 +75,65 @@ app.post("/dashboard", async (req, res) => {
 });
 
 //get doctor list
-app.get("/dashboard", async (req, res) => {
+app.get("/master", async (req, res) => {
   const allDoctors = await DoctorTable.findAll();
   console.log(allDoctors);
   res.send(allDoctors);
 });
 
 //delete doctor list
-app.delete("/dashboard/:id", async (req, res) => {
+app.delete("/master/:id", async (req, res) => {
   const deleteList = await DoctorTable.findByPk(req.params.id);
   await deleteList.destroy();
   res.send(deleteList);
 });
 
-//update doctor list
-app.put("/dashboard/:id", async function updateValues(req, res) {
-  try {
-    // const id = req.body;
-    const updatedValues = await DoctorTable.update(
-      {
+// update doctor list
+// app.put("/master/:id", async function updateValues(req, res) {
+//   try {
+//     // const id = req.body;
+//     const updatedValues = await DoctorTable.update(
+//       {
+//         Name: req.body.doctorname,
+//         Specialist: req.body.specialist,
+//         Fees: req.body.fees,
+//       },
+//       { returning: true, where: { doctor_id: req.body.id } }
+//     );
+//     return res.json({
+//       success: true,
+//       message: "Values successfully updated",
+//       updatedValues,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       success: false,
+//       message: "Error updating values",
+//       error,
+//     });
+//   }
+// });
+
+// Create a route that allows you to update a user
+app.put("/master/:id", (req, res) => {
+  // Find the user by ID
+  DoctorTable.findByPk(req.params.id)
+    .then((user) => {
+      // Update the user using the data from the request body
+      return DoctorTable.update({
         Name: req.body.doctorname,
         Specialist: req.body.specialist,
         Fees: req.body.fees,
-      },
-      { returning: true, where: { id: req.body.id } }
-    );
-    return res.json({
-      success: true,
-      message: "Values successfully updated",
-      updatedValues,
+      });
+    })
+    .then((data) => {
+      // Return a response indicating that the update was successful
+      res.send({ message: "User updated successfully" });
+    })
+    .catch((error) => {
+      // Return an error response if something went wrong
+      res.status(500).send({ message: "Error updating user" });
     });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error updating values",
-      error,
-    });
-  }
 });
 
 app.listen(5500, () => {

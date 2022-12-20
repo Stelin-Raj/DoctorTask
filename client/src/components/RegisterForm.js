@@ -44,6 +44,7 @@ const RegisterForm = () => {
               onChange={(e) => {
                 setUsername(e.target.value);
               }}
+              required
             />
           </div>
           <div className="mb-3">
@@ -58,6 +59,7 @@ const RegisterForm = () => {
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
+              required
             />
           </div>
           <div className="mb-3">
@@ -72,6 +74,7 @@ const RegisterForm = () => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              required
             />
           </div>
 

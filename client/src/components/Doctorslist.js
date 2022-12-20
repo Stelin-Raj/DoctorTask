@@ -7,7 +7,7 @@ const ListDoctors = () => {
   //Delete function
   const deleteDoctors = async (id) => {
     try {
-      const deleteTodo = await fetch(`http://localhost:5500/dashboard/${id}`, {
+      const deleteTodo = await fetch(`http://localhost:5500/master/${id}`, {
         method: "DELETE",
       });
       setList(list.filter((lists) => lists.doctor_id !== id));
@@ -18,7 +18,7 @@ const ListDoctors = () => {
 
   const getDoctors = async () => {
     try {
-      const response = await fetch("http://localhost:5500/dashboard");
+      const response = await fetch("http://localhost:5500/master");
       const jsonData = await response.json();
 
       setList(jsonData);
@@ -42,7 +42,6 @@ const ListDoctors = () => {
               <th scope="col">Fees</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
-              <th scope="col">Appointment</th>
             </tr>
           </thead>
           <tbody>
@@ -61,9 +60,6 @@ const ListDoctors = () => {
                   >
                     Delete
                   </button>
-                </td>
-                <td>
-                  <button className="btn btn-warning">Appointment</button>
                 </td>
               </tr>
             ))}
